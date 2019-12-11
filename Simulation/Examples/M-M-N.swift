@@ -11,8 +11,6 @@ import Foundation
 class NProcessorSimulation {
     // MARK: - Properties
     
-    private let infinity: Double = 1_000_000_000.00
-    
     private (set) var ea: Double                                // Expected Inter Arrival Time
     private (set) var es: Double                                // Expected Service Time
     private (set) var simulationTime: Double                    // Simulation Time (minutes)
@@ -36,7 +34,7 @@ class NProcessorSimulation {
         self.simulationTime = 1_000.00
         self.resources = 2
         
-        self.tDE = Array<Double>(repeating: infinity, count: resources)
+        self.tDE = Array<Double>(repeating: Double.infinity, count: resources)
         self.b = Array<Double>(repeating: 0.0, count: resources)
     }
     
@@ -47,7 +45,7 @@ class NProcessorSimulation {
         self.simulationTime = simulationTime
         self.resources = resources
         
-        self.tDE = Array<Double>(repeating: infinity, count: resources)
+        self.tDE = Array<Double>(repeating: Double.infinity, count: resources)
         self.b = Array<Double>(repeating: 0.0, count: resources)
     }
     
@@ -58,7 +56,7 @@ class NProcessorSimulation {
         self.resources = resources
         self.simulationTime = simulationTime
         
-        self.tDE = Array<Double>(repeating: infinity, count: resources)
+        self.tDE = Array<Double>(repeating: Double.infinity, count: resources)
         self.b = Array<Double>(repeating: 0.0, count: resources)
     }
     
@@ -80,7 +78,7 @@ class NProcessorSimulation {
     func start() {
         while t < simulationTime {
             for idx in tDE.indices {
-                if tDE[idx] == infinity {
+                if tDE[idx] == Double.infinity {
                     k = idx
                 }
             }
@@ -111,7 +109,7 @@ class NProcessorSimulation {
                 t = tDE[k]
                 
                 if n <= 1 {
-                    tDE[k] = self.infinity
+                    tDE[k] = Double.infinity
                 } else {
                     let z = -es * log(Double.random(in: 0...1))
                     b[k] += z

@@ -12,8 +12,6 @@ class LimitedCapacitySimulation {
     
     // MARK: - Properties
     
-    private let infinity: Double = 1_000_000_000.00
-    
     private (set) var ea: Double                              // Expected Inter Arrival Time
     private (set) var es: Double                              // Expected Service Time
     private (set) var simulationTime: Double                  // Simulation Time (minutes)
@@ -21,7 +19,7 @@ class LimitedCapacitySimulation {
     
     private var t: Double = 0.00                              // Time (also, it always has the time of the previous event)
     private var tAE: Double = 0.00                            // Time Arrival Event
-    private var tDE: Double = 0.00                            // Time Departure Event (infinity because we don't know when it will end)
+    private var tDE: Double = Double.infinity                 // Time Departure Event (infinity because we don't know when it will end)
     private var n: Int = 0                                    // Jobs In The System?
     private var b: Double = 0.00                              // Busy Time
     private var c: Int = 0                                    // Completed Task
@@ -38,7 +36,6 @@ class LimitedCapacitySimulation {
         self.es = 3.4
         self.simulationTime = 1_000.00
         
-        self.tDE = self.infinity
         self.maxCapacity = 8
     }
     
@@ -48,8 +45,6 @@ class LimitedCapacitySimulation {
         self.es = es
         self.simulationTime = simulationTime
         self.maxCapacity = maxCapacity
-        
-        self.tDE = self.infinity
     }
     
     // Custom simulation time init
@@ -58,8 +53,6 @@ class LimitedCapacitySimulation {
         self.es = 3.4
         self.simulationTime = simulationTime
         self.maxCapacity = maxCapacity
-        
-        self.tDE = self.infinity
     }
     
     // MARK: - Methods
@@ -124,7 +117,7 @@ class LimitedCapacitySimulation {
                     tDE = t + z
                     c += 1
                 } else {
-                    tDE = self.infinity
+                    tDE = Double.infinity
                 }
                 
                 //print("Departure time = \(t), job = \(n)")
